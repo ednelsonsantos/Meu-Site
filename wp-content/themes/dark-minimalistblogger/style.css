@@ -2807,3 +2807,54 @@ body .main-navigation .ul.sub-menu {
     float: none;
     margin-right: 0;
 }
+
+/* ============================================================
+   Layout horizontal: imagem à esquerda, texto à direita
+   Aplicado apenas na listagem de categorias (.blogposts-list)
+   ============================================================ */
+.blogposts-list .featured-thumbnail {
+    float: left;
+    width: 220px;
+    margin-right: 24px;
+    margin-bottom: 0;
+}
+
+.blogposts-list .featured-thumbnail img {
+    width: 220px;
+    height: 160px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 4px;
+    display: block;
+}
+
+/* BFC: faz header e content ficarem ao lado da imagem (não embaixo) */
+.blogposts-list .entry-header,
+.blogposts-list .entry-content {
+    overflow: hidden;
+}
+
+/* Limpa o float dentro do card */
+.blogposts-list::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Mobile: volta ao layout vertical */
+@media (max-width: 768px) {
+    .blogposts-list .featured-thumbnail {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    .blogposts-list .featured-thumbnail img {
+        width: 100%;
+        height: 200px;
+    }
+    .blogposts-list .entry-header,
+    .blogposts-list .entry-content {
+        overflow: visible;
+    }
+}
