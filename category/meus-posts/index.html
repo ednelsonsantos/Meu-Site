@@ -371,7 +371,7 @@
 			document.getElementById('mastodon-profile-name').textContent = account.display_name;
 			profileEl.style.display = 'flex';
 
-			return fetch('https://' + INSTANCE + '/api/v1/accounts/' + account.id + '/statuses?limit=20&exclude_replies=false');
+			return fetch('https://' + INSTANCE + '/api/v1/accounts/' + account.id + '/statuses?limit=10&exclude_replies=false');
 		})
 		.then(function(r) { return r.json(); })
 		.then(function(statuses) {
