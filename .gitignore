@@ -23,3 +23,10 @@ desktop.ini
 # Node (caso instale dependências locais)
 node_modules/
 package-lock.json
+
+# Scripts utilitários locais (não vão para produção)
+*.py
+*.sh
+
+# Claude Code (configurações locais da IA)
+.claude/

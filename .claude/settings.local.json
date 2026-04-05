@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(grep -rh \"content-wrap\\\\|\\\\.elespare-list-wrap\\\\|\\\\.elespare-posts-wrap\\\\|\\\\.e-con\\\\b\" 'c:/Users/Ednelsonchado/Downloads/site/Meu Site/wp-content/themes/' --include=*.css)"
-    ]
-  }
-}
