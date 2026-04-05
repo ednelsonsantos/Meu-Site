@@ -2005,7 +2005,11 @@ object {
 	text-decoration: none;
 }
 .main-navigation ul li.current-menu-item>a {
-	font-weight:400;
+	background: #fff;
+	color: #000 !important;
+	border-radius: 20px;
+	font-weight: 600;
+	padding: 6px 16px;
 }
 .primary-menu {
 	float:left;
