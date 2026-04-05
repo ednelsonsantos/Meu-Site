@@ -1,0 +1,19 @@
+# Cloudflare Pages - Redirecionamentos
+
+# RSS feeds - redirecionar para a página do blog
+/feed/              /blog/          301
+/feed               /blog/          301
+/comments/feed/     /blog/          301
+/comments/feed      /blog/          301
+
+# Canonical para blog/page/1
+/blog/page/1/       /blog/          301
+/blog/page/1        /blog/          301
+
+# WordPress admin e PHP - bloquear com 404
+/wp-admin/*         /              404
+/wp-login.php       /              404
+/wp-comments-post.php  /           404
+/xmlrpc.php         /              404
+/wp-cron.php        /              404
+/wp-json/*          /              404
