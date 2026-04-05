@@ -1,0 +1,25 @@
+# Pasta de build gerada pelo Cloudflare (nunca versionar)
+dist/
+
+# Cache do WordPress (arquivos gerados dinamicamente)
+wp-content/cache/
+wp-content/uploads/cache/
+
+# Logs
+*.log
+error_log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (caso instale dependências locais)
+node_modules/
+package-lock.json

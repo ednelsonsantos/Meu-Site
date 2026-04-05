@@ -2781,3 +2781,10 @@ body .main-navigation .ul.sub-menu {
 .featured-sidebar .search-field, .header-widget .search-field {
     color: #fff !important;
 }
+
+/* Centralizar posts quando não há sidebar */
+.featured-content {
+    width: 100%;
+    margin-right: 0;
+    float: none;
+}
