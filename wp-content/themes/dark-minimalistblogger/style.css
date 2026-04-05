@@ -970,6 +970,10 @@ object {
 	width: 1180px;
 	max-width: 90%;
 	margin: 0 auto;
+}
+
+/* Padding apenas no conteúdo principal — não afeta header/nav/footer */
+#content .content-wrap {
 	padding-left: 61px;
 	padding-right: 61px;
 	box-sizing: border-box;
@@ -1770,7 +1774,7 @@ object {
 }
 
 @media screen and (max-width:768px) {
-	.content-wrap {
+	#content .content-wrap {
 		padding-left: 16px;
 		padding-right: 16px;
 	}
