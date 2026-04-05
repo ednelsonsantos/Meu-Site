@@ -2808,6 +2808,11 @@ body .main-navigation .ul.sub-menu {
     margin-right: 0;
 }
 
+/* Oculta cabeçalho de descrição nas páginas de categoria */
+.archive header.fbox.page-header {
+    display: none;
+}
+
 /* ============================================================
    Layout horizontal: imagem à esquerda, texto à direita
    Aplicado apenas na listagem de categorias (.blogposts-list)
