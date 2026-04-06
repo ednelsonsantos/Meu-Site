@@ -48,8 +48,42 @@ A cada `git push` na branch `main`, o Cloudflare executa:
 
 ## Categorias
 
-- Home
-- O que estou assistindo / Assisti
-- O que eu sei e aprendi sobre o Autismo
-- Recomendados
-- Sobre Mim
+| Label no nav | URL |
+|---|---|
+| Home | `/category/home/` |
+| Meus Posts | `/category/meus-posts/` |
+| Assisti/Assisto | `/category/o-que-estou-assistindo/` |
+| Recomendados | `/category/recomendados/` |
+| Autismo | `/category/o-que-eu-sei-e-aprendi-sobre-o-autismo/` |
+| Hobbies | `/category/hobbies/` |
+| Sobre Mim | `/category/sobre-mim/` |
+
+## Meus Posts (Mastodon)
+
+A categoria **Meus Posts** (`/category/meus-posts/`) exibe em tempo real os últimos 10 posts do Mastodon via API pública, sem necessidade de commit ou deploy.
+
+- Conta: `@ednelsonchado@mas.to`
+- API: `https://mas.to/api/v1/accounts/:id/statuses?limit=10`
+- Atualização: automática a cada visita (JavaScript no cliente)
+
+## Como publicar
+
+```bash
+bash publish.sh "descrição do que mudou"
+```
+
+O script faz commit dos arquivos HTML e assets, push para `origin/main` e o Cloudflare Pages faz o deploy automaticamente em ~1 minuto.
+
+## Como criar um novo post
+
+1. Copie a pasta `novo-post-exemplo/` e renomeie para o slug do post
+2. Edite o `index.html` preenchendo os campos `<< >>`
+3. Rode `bash publish.sh "Novo post: título"`
+
+## Layout
+
+O tema usa layout float-based (herança do WordPress). Ajustes aplicados para a versão estática:
+
+- `#primary { width: 100%; float: none }` — remove o layout de duas colunas (sidebar removida)
+- `#content .content-wrap { padding: 0 61px }` — breathing room lateral no conteúdo
+- Media query `≤768px`: padding reduz para `16px`
