@@ -1,9 +1,21 @@
 # Cloudflare Pages - Headers de Cache
 
-# Assets estáticos do WordPress (CSS, JS, imagens, fontes)
-/wp-content/*
+# Imagens e fontes: cache longo (não mudam)
+/wp-content/uploads/*
   Cache-Control: public, max-age=31536000, immutable
 
+/wp-content/*/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS e JS dos temas: cache de 1 dia — permite atualizar sem busting manual
+/wp-content/themes/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# CSS e JS de plugins: cache longo (não editamos)
+/wp-content/plugins/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Assets do WordPress core
 /wp-includes/*
   Cache-Control: public, max-age=31536000, immutable
 
