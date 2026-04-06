@@ -36,9 +36,9 @@ A cada `git push` na branch `main`, o Cloudflare executa:
 
 | Campo | Valor |
 |---|---|
-| Build command | `mkdir -p dist && find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'dist' ! -name 'README.md' ! -name 'wrangler.toml' -exec cp -r {} dist/ \;` |
-| Deploy command | `npx wrangler pages deploy dist` |
-| Path (output) | `dist` |
+| Build command | `echo "done"` |
+| Build output | *(raiz do repositório)* |
+| Root directory | *(vazio)* |
 
 ## Limitações do site estático
 
