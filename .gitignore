@@ -24,9 +24,10 @@ desktop.ini
 node_modules/
 package-lock.json
 
-# Scripts utilitários locais (não vão para produção)
+# Scripts e ferramentas locais (não vão para produção)
 *.py
 *.sh
+novo-post.html
 
 # Claude Code (configurações locais da IA)
 .claude/
