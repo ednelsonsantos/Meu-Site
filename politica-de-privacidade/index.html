@@ -240,5 +240,21 @@
     </div>
   </div>
 </div>
+<style id="footer-accordion-css">
+.site-footer .wp-block-heading{cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;margin-bottom:0}
+.site-footer .wp-block-heading::after{content:'BC';font-size:10px;transition:transform .25s ease;display:inline-block;margin-left:8px;opacity:.7}
+.site-footer .wp-block-heading.fac-open::after{transform:rotate(-180deg)}
+.site-footer .wp-block-archives,.site-footer .wp-block-categories-list,.site-footer .wp-block-archives-list{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .3s ease;margin-top:0}
+.site-footer .wp-block-archives.fac-open,.site-footer .wp-block-categories-list.fac-open,.site-footer .wp-block-archives-list.fac-open{max-height:600px;opacity:1;margin-top:8px}
+</style>
+<script id="footer-accordion-js">
+(function(){document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.site-footer .wp-block-heading').forEach(function(h){
+    var ul=h.parentElement.querySelector('ul');
+    if(!ul)return;
+    h.addEventListener('click',function(){h.classList.toggle('fac-open');ul.classList.toggle('fac-open');});
+  });
+});}())
+</script>
 </body>
 </html>
