@@ -267,5 +267,33 @@
 <script type="text/javascript" src="/wp-content/themes/minimalistblogger/js/script.js?ver=20160720" id="minimalistblogger-script-js"></script>
 <script type="text/javascript" src="/wp-content/themes/minimalistblogger/js/jquery.flexslider.js?ver=20150423" id="flexslider-js"></script>
 <script type="text/javascript" src="/wp-content/themes/minimalistblogger/js/accessibility.js?ver=20160720" id="minimalistblogger-accessibility-js"></script>
+
+<style id="xmpp-float-css">
+#xmpp-float{position:fixed;right:-185px;top:50%;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:row;transition:right .3s ease}
+#xmpp-float:hover{right:0}
+#xmpp-tab{writing-mode:vertical-rl;text-orientation:mixed;background:#1f7cec;color:#fff;padding:12px 6px;border-radius:6px 0 0 6px;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;justify-content:center;min-height:90px;box-shadow:-2px 0 8px rgba(0,0,0,.5);user-select:none}
+#xmpp-body{background:#0d3c74;width:185px;padding:14px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:-2px 0 10px rgba(0,0,0,.5)}
+.xmpp-join{display:block;background:#1f7cec;color:#fff!important;text-align:center;padding:9px 8px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none!important;line-height:1.4}
+.xmpp-join:hover{background:#3993ff!important}
+.xmpp-sep{border:none;border-top:1px solid #1f7cec;margin:0}
+.xmpp-sub{color:#cbd5e1;font-size:11px;text-align:center;margin:0;line-height:1.4}
+.xmpp-links{display:flex;flex-direction:column;gap:4px}
+.xmpp-links a{display:block;color:#60a5fa!important;font-size:11px;text-align:center;text-decoration:none!important;padding:3px 0;border-radius:4px}
+.xmpp-links a:hover{color:#fff!important;text-decoration:underline!important}
+@media(max-width:768px){#xmpp-float{top:auto;bottom:70px;transform:none}}
+</style>
+<div id="xmpp-float">
+  <div id="xmpp-tab">XMPP</div>
+  <div id="xmpp-body">
+    <a href="xmpp:blambers@conference.isacloud.cc?join" class="xmpp-join">&#128172; Entrar no grupo<br>Blambers XMPP</a>
+    <hr class="xmpp-sep">
+    <p class="xmpp-sub">Nao tem XMPP?<br>Inscreva-se:</p>
+    <div class="xmpp-links">
+      <a href="https://isacloud.com.br/signup" target="_blank" rel="noopener">isacloud.com.br</a>
+      <a href="https://xmpp.social.br/registrar" target="_blank" rel="noopener">xmpp.social.br</a>
+      <a href="https://voz.social.br/registrar" target="_blank" rel="noopener">voz.social.br</a>
+    </div>
+  </div>
+</div>
 </body>
 </html>
