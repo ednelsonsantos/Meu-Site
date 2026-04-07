@@ -28,6 +28,7 @@ package-lock.json
 *.py
 *.sh
 novo-post.html
+templates/
 
 # Claude Code (configurações locais da IA)
 .claude/
