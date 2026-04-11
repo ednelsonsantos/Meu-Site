@@ -6,350 +6,273 @@
   <title>Meus Áudios</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #f5f4f0;
-      color: #1a1a18;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
-
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    header {
-      margin-bottom: 2rem;
-    }
-
-    header h1 {
-      font-size: 28px;
-      font-weight: 500;
-      margin-bottom: 0.25rem;
-    }
-
-    header p {
-      font-size: 15px;
-      color: #5f5e5a;
-    }
-
-    .track-card {
-      background: #fff;
-      border: 0.5px solid rgba(0,0,0,0.12);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .track-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .track-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: #e6f1fb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .track-icon svg {
-      width: 18px;
-      height: 18px;
-      color: #185fa5;
-    }
-
-    .track-meta { flex: 1; min-width: 0; }
-
-    .track-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: #1a1a18;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 2px;
-    }
-
-    .track-date {
-      font-size: 12px;
-      color: #888780;
-    }
-
-    .track-desc {
-      font-size: 13px;
-      color: #5f5e5a;
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
-    .player-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .play-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 0.5px solid rgba(0,0,0,0.2);
-      background: #f5f4f0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 720px; margin: 0 auto; }
+    header { margin-bottom: 2rem; }
+    header h1 { font-size: 28px; font-weight: 500; margin-bottom: 0.25rem; }
+    header p { font-size: 15px; color: #5f5e5a; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .card { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.15s; user-select: none; }
+    .card:hover { border-color: rgba(0,0,0,0.25); }
+    .card.active { border: 1px solid #185fa5; }
+    .card-thumb { width: 100%; aspect-ratio: 1; background: #e6f1fb; display: flex; align-items: center; justify-content: center; position: relative; transition: background 0.15s; }
+    .card.active .card-thumb { background: #b5d4f4; }
+    .card-thumb svg { width: 48px; height: 48px; color: #185fa5; opacity: 0.5; transition: opacity 0.15s; }
+    .card:hover .card-thumb svg, .card.active .card-thumb svg { opacity: 0.9; }
+    .card-num { position: absolute; top: 10px; left: 12px; font-size: 11px; font-weight: 500; color: #185fa5; opacity: 0.7; }
+    .playing-dot { position: absolute; bottom: 10px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: #185fa5; display: none; }
+    .card.playing .playing-dot { display: block; animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    .card-body { padding: 0.75rem 1rem; }
+    .card-title { font-size: 14px; font-weight: 500; color: #1a1a18; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+    .card-date { font-size: 11px; color: #888780; }
+    .player-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 0.5px solid rgba(0,0,0,0.12); padding: 0.75rem 1.25rem 1rem; transform: translateY(100%); transition: transform 0.25s ease; z-index: 100; }
+    .player-bar.visible { transform: translateY(0); }
+    .player-info { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .player-title { font-size: 14px; font-weight: 500; color: #1a1a18; }
+    .player-date { font-size: 12px; color: #888780; }
+    .close-btn { width: 28px; height: 28px; border: none; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #888780; border-radius: 50%; flex-shrink: 0; }
+    .close-btn:hover { background: #f0efeb; color: #1a1a18; }
+    .close-btn svg { width: 16px; height: 16px; }
+    .controls { display: flex; align-items: center; gap: 10px; }
+    .play-btn { width: 36px; height: 36px; border-radius: 50%; border: 0.5px solid rgba(0,0,0,0.2); background: #f5f4f0; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
     .play-btn:hover { background: #e8e7e3; }
-
-    .play-btn svg {
-      width: 14px;
-      height: 14px;
-      color: #1a1a18;
-    }
-
-    .progress-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 3px;
-      -webkit-appearance: none;
-      appearance: none;
-      background: rgba(0,0,0,0.12);
-      border-radius: 2px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .progress-bar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #1a1a18;
-      cursor: pointer;
-    }
-
-    .progress-bar::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #1a1a18;
-      cursor: pointer;
-      border: none;
-    }
-
-    .time-row {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .time-label {
-      font-size: 11px;
-      color: #888780;
-      font-variant-numeric: tabular-nums;
-    }
-
+    .play-btn svg { width: 14px; height: 14px; color: #1a1a18; }
+    .progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .progress-bar { width: 100%; height: 3px; -webkit-appearance: none; appearance: none; background: rgba(0,0,0,0.12); border-radius: 2px; outline: none; cursor: pointer; }
+    .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #1a1a18; cursor: pointer; }
+    .progress-bar::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #1a1a18; cursor: pointer; border: none; }
+    .time-row { display: flex; justify-content: space-between; }
+    .time-label { font-size: 11px; color: #888780; font-variant-numeric: tabular-nums; }
+    .spacer { height: 110px; }
     @media (prefers-color-scheme: dark) {
       body { background: #1c1c1a; color: #e8e7e3; }
-      .track-card { background: #2c2c2a; border-color: rgba(255,255,255,0.1); }
-      .track-title { color: #e8e7e3; }
-      .track-date { color: #888780; }
-      .track-desc { color: #b4b2a9; }
+      header h1 { color: #e8e7e3; } header p { color: #888780; }
+      .card { background: #2c2c2a; border-color: rgba(255,255,255,0.1); }
+      .card:hover { border-color: rgba(255,255,255,0.25); }
+      .card.active { border-color: #378add; }
+      .card-thumb { background: #0c447c; } .card.active .card-thumb { background: #185fa5; }
+      .card-thumb svg { color: #85b7eb; } .card-title { color: #e8e7e3; }
+      .card-num { color: #85b7eb; } .playing-dot { background: #85b7eb; }
+      .player-bar { background: #2c2c2a; border-color: rgba(255,255,255,0.1); }
+      .player-title { color: #e8e7e3; } .close-btn { color: #888780; }
+      .close-btn:hover { background: #3c3c3a; color: #e8e7e3; }
       .play-btn { background: #3c3c3a; border-color: rgba(255,255,255,0.15); }
-      .play-btn:hover { background: #4a4a48; }
-      .play-btn svg { color: #e8e7e3; }
+      .play-btn:hover { background: #4a4a48; } .play-btn svg { color: #e8e7e3; }
       .progress-bar { background: rgba(255,255,255,0.15); }
       .progress-bar::-webkit-slider-thumb { background: #e8e7e3; }
       .progress-bar::-moz-range-thumb { background: #e8e7e3; }
-      header h1 { color: #e8e7e3; }
-      header p { color: #888780; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-
     <header>
       <h1>Meus áudios</h1>
-      <p>Clique em play para ouvir cada faixa</p>
+      <p>Clique em um card para ouvir</p>
     </header>
 
-    <!-- FAIXA 1 — substitua o src pelo caminho real do seu .mp3 -->
-    <div class="track-card">
-      <div class="track-header">
-        <div class="track-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
-          </svg>
+    <div class="grid" id="grid">
+
+      <!-- CARD 1 — edite data-audio, data-title e data-date -->
+      <div class="card" data-audio="audios/faixa1.mp3" data-title="Título do áudio 1" data-date="Janeiro 2025">
+        <div class="card-thumb">
+          <span class="card-num">01</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
         </div>
-        <div class="track-meta">
-          <p class="track-title">Título do áudio 1</p>
-          <p class="track-date">Janeiro 2025</p>
-        </div>
-      </div>
-      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
-      <audio id="audio-1" src="audios/faixa1.mp3" preload="metadata"></audio>
-      <div class="player-controls">
-        <button class="play-btn" data-audio="audio-1" data-playing="false">
-          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <div class="progress-wrap">
-          <input type="range" class="progress-bar" data-audio="audio-1" min="0" max="100" value="0" step="0.1">
-          <div class="time-row">
-            <span class="time-label current" data-audio="audio-1">0:00</span>
-            <span class="time-label duration" data-audio="audio-1">0:00</span>
-          </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 1</p>
+          <p class="card-date">Janeiro 2025</p>
         </div>
       </div>
+
+      <!-- CARD 2 -->
+      <div class="card" data-audio="audios/faixa2.mp3" data-title="Título do áudio 2" data-date="Fevereiro 2025">
+        <div class="card-thumb">
+          <span class="card-num">02</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 2</p>
+          <p class="card-date">Fevereiro 2025</p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card" data-audio="audios/faixa3.mp3" data-title="Título do áudio 3" data-date="Março 2025">
+        <div class="card-thumb">
+          <span class="card-num">03</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 3</p>
+          <p class="card-date">Março 2025</p>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="card" data-audio="audios/faixa4.mp3" data-title="Título do áudio 4" data-date="Abril 2025">
+        <div class="card-thumb">
+          <span class="card-num">04</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 4</p>
+          <p class="card-date">Abril 2025</p>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="card" data-audio="audios/faixa5.mp3" data-title="Título do áudio 5" data-date="Maio 2025">
+        <div class="card-thumb">
+          <span class="card-num">05</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 5</p>
+          <p class="card-date">Maio 2025</p>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="card" data-audio="audios/faixa6.mp3" data-title="Título do áudio 6" data-date="Junho 2025">
+        <div class="card-thumb">
+          <span class="card-num">06</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
+          <div class="playing-dot"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-title">Título do áudio 6</p>
+          <p class="card-date">Junho 2025</p>
+        </div>
+      </div>
+
+      <!--
+        Para adicionar mais cards copie um bloco acima e atualize:
+        data-audio, data-title, data-date, card-num, card-title, card-date
+      -->
+
     </div>
-
-    <!-- FAIXA 2 -->
-    <div class="track-card">
-      <div class="track-header">
-        <div class="track-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
-          </svg>
-        </div>
-        <div class="track-meta">
-          <p class="track-title">Título do áudio 2</p>
-          <p class="track-date">Fevereiro 2025</p>
-        </div>
-      </div>
-      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
-      <audio id="audio-2" src="audios/faixa2.mp3" preload="metadata"></audio>
-      <div class="player-controls">
-        <button class="play-btn" data-audio="audio-2" data-playing="false">
-          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <div class="progress-wrap">
-          <input type="range" class="progress-bar" data-audio="audio-2" min="0" max="100" value="0" step="0.1">
-          <div class="time-row">
-            <span class="time-label current" data-audio="audio-2">0:00</span>
-            <span class="time-label duration" data-audio="audio-2">0:00</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAIXA 3 -->
-    <div class="track-card">
-      <div class="track-header">
-        <div class="track-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
-          </svg>
-        </div>
-        <div class="track-meta">
-          <p class="track-title">Título do áudio 3</p>
-          <p class="track-date">Março 2025</p>
-        </div>
-      </div>
-      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
-      <audio id="audio-3" src="audios/faixa3.mp3" preload="metadata"></audio>
-      <div class="player-controls">
-        <button class="play-btn" data-audio="audio-3" data-playing="false">
-          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-        <div class="progress-wrap">
-          <input type="range" class="progress-bar" data-audio="audio-3" min="0" max="100" value="0" step="0.1">
-          <div class="time-row">
-            <span class="time-label current" data-audio="audio-3">0:00</span>
-            <span class="time-label duration" data-audio="audio-3">0:00</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--
-      Para adicionar mais faixas, copie um bloco <div class="track-card"> acima,
-      troque o id (audio-4, audio-5, ...) e o src do <audio>.
-    -->
-
+    <div class="spacer" id="spacer" style="display:none;"></div>
   </div>
 
+  <!-- Player fixo no rodapé -->
+  <div class="player-bar" id="player-bar">
+    <div class="player-info">
+      <div>
+        <p class="player-title" id="player-title">—</p>
+        <p class="player-date" id="player-date">—</p>
+      </div>
+      <button class="close-btn" id="close-btn" title="Fechar player">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="controls">
+      <button class="play-btn" id="play-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="progress-wrap">
+        <input type="range" class="progress-bar" id="progress-bar" min="0" max="100" value="0" step="0.1">
+        <div class="time-row">
+          <span class="time-label" id="time-current">0:00</span>
+          <span class="time-label" id="time-duration">0:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-player" preload="metadata"></audio>
+
   <script>
-    const PLAY_ICON = `<svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
-    const PAUSE_ICON = `<svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+    const audio       = document.getElementById('audio-player');
+    const bar         = document.getElementById('player-bar');
+    const playBtn     = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const timeCur     = document.getElementById('time-current');
+    const timeDur     = document.getElementById('time-duration');
+    const titleEl     = document.getElementById('player-title');
+    const dateEl      = document.getElementById('player-date');
+    const closeBtn    = document.getElementById('close-btn');
+    const spacer      = document.getElementById('spacer');
+
+    const PLAY_ICON  = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    const PAUSE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 
     function fmt(s) {
-      if (isNaN(s)) return '0:00';
+      if (!s || isNaN(s)) return '0:00';
       const m = Math.floor(s / 60);
       const sec = Math.floor(s % 60);
       return m + ':' + String(sec).padStart(2, '0');
     }
 
-    document.querySelectorAll('.play-btn').forEach(btn => {
-      const audioId = btn.dataset.audio;
-      const audio = document.getElementById(audioId);
-      const bar = document.querySelector(`.progress-bar[data-audio="${audioId}"]`);
-      const cur = document.querySelector(`.time-label.current[data-audio="${audioId}"]`);
-      const dur = document.querySelector(`.time-label.duration[data-audio="${audioId}"]`);
+    let activeCard = null;
 
-      audio.addEventListener('loadedmetadata', () => {
-        dur.textContent = fmt(audio.duration);
-      });
+    function setPlaying(isPlaying) {
+      playBtn.innerHTML = isPlaying ? PAUSE_ICON : PLAY_ICON;
+      if (activeCard) activeCard.classList.toggle('playing', isPlaying);
+    }
 
-      audio.addEventListener('timeupdate', () => {
-        if (audio.duration) {
-          bar.value = (audio.currentTime / audio.duration) * 100;
-          cur.textContent = fmt(audio.currentTime);
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        const src   = card.dataset.audio;
+        const title = card.dataset.title;
+        const date  = card.dataset.date;
+
+        if (activeCard && activeCard !== card) activeCard.classList.remove('active', 'playing');
+        activeCard = card;
+        card.classList.add('active');
+
+        if (audio.src !== new URL(src, location.href).href) {
+          audio.src = src;
+          audio.load();
         }
+
+        titleEl.textContent = title;
+        dateEl.textContent  = date;
+        bar.classList.add('visible');
+        spacer.style.display = 'block';
+        audio.play();
+        setPlaying(true);
       });
+    });
 
-      audio.addEventListener('ended', () => {
-        btn.innerHTML = PLAY_ICON;
-        btn.dataset.playing = 'false';
-        bar.value = 0;
-        cur.textContent = '0:00';
-      });
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) { audio.play(); setPlaying(true); }
+      else { audio.pause(); setPlaying(false); }
+    });
 
-      bar.addEventListener('input', () => {
-        if (audio.duration) {
-          audio.currentTime = (bar.value / 100) * audio.duration;
-        }
-      });
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+        timeCur.textContent = fmt(audio.currentTime);
+      }
+    });
 
-      btn.addEventListener('click', () => {
-        const playing = btn.dataset.playing === 'true';
+    audio.addEventListener('loadedmetadata', () => { timeDur.textContent = fmt(audio.duration); });
 
-        // pausa todos os outros
-        document.querySelectorAll('.play-btn').forEach(b => {
-          if (b !== btn && b.dataset.playing === 'true') {
-            const otherId = b.dataset.audio;
-            document.getElementById(otherId).pause();
-            b.innerHTML = PLAY_ICON;
-            b.dataset.playing = 'false';
-          }
-        });
+    audio.addEventListener('ended', () => {
+      setPlaying(false);
+      progressBar.value = 0;
+      timeCur.textContent = '0:00';
+    });
 
-        if (playing) {
-          audio.pause();
-          btn.innerHTML = PLAY_ICON;
-          btn.dataset.playing = 'false';
-        } else {
-          audio.play();
-          btn.innerHTML = PAUSE_ICON;
-          btn.dataset.playing = 'true';
-        }
-      });
+    progressBar.addEventListener('input', () => {
+      if (audio.duration) audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
+
+    closeBtn.addEventListener('click', () => {
+      audio.pause(); audio.src = '';
+      bar.classList.remove('visible');
+      spacer.style.display = 'none';
+      if (activeCard) { activeCard.classList.remove('active', 'playing'); activeCard = null; }
+      progressBar.value = 0;
+      timeCur.textContent = '0:00';
+      timeDur.textContent = '0:00';
     });
   </script>
 </body>
