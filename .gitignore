@@ -32,3 +32,8 @@ templates/
 
 # Claude Code (configurações locais da IA)
 .claude/
+
+# Arquivos pesados (limite Cloudflare Pages: 25MB por arquivo)
+*.pdf
+audios/*.wav
+audios/*.flac
