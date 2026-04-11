@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Áudios</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f4f0;
+      color: #1a1a18;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      font-size: 15px;
+      color: #5f5e5a;
+    }
+
+    .track-card {
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .track-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #e6f1fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .track-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #185fa5;
+    }
+
+    .track-meta { flex: 1; min-width: 0; }
+
+    .track-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a18;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .track-date {
+      font-size: 12px;
+      color: #888780;
+    }
+
+    .track-desc {
+      font-size: 13px;
+      color: #5f5e5a;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .play-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(0,0,0,0.2);
+      background: #f5f4f0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .play-btn:hover { background: #e8e7e3; }
+
+    .play-btn svg {
+      width: 14px;
+      height: 14px;
+      color: #1a1a18;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 3px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(0,0,0,0.12);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .progress-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #1a1a18;
+      cursor: pointer;
+    }
+
+    .progress-bar::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #1a1a18;
+      cursor: pointer;
+      border: none;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .time-label {
+      font-size: 11px;
+      color: #888780;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #1c1c1a; color: #e8e7e3; }
+      .track-card { background: #2c2c2a; border-color: rgba(255,255,255,0.1); }
+      .track-title { color: #e8e7e3; }
+      .track-date { color: #888780; }
+      .track-desc { color: #b4b2a9; }
+      .play-btn { background: #3c3c3a; border-color: rgba(255,255,255,0.15); }
+      .play-btn:hover { background: #4a4a48; }
+      .play-btn svg { color: #e8e7e3; }
+      .progress-bar { background: rgba(255,255,255,0.15); }
+      .progress-bar::-webkit-slider-thumb { background: #e8e7e3; }
+      .progress-bar::-moz-range-thumb { background: #e8e7e3; }
+      header h1 { color: #e8e7e3; }
+      header p { color: #888780; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Meus áudios</h1>
+      <p>Clique em play para ouvir cada faixa</p>
+    </header>
+
+    <!-- FAIXA 1 — substitua o src pelo caminho real do seu .mp3 -->
+    <div class="track-card">
+      <div class="track-header">
+        <div class="track-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
+          </svg>
+        </div>
+        <div class="track-meta">
+          <p class="track-title">Título do áudio 1</p>
+          <p class="track-date">Janeiro 2025</p>
+        </div>
+      </div>
+      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
+      <audio id="audio-1" src="audios/faixa1.mp3" preload="metadata"></audio>
+      <div class="player-controls">
+        <button class="play-btn" data-audio="audio-1" data-playing="false">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="progress-wrap">
+          <input type="range" class="progress-bar" data-audio="audio-1" min="0" max="100" value="0" step="0.1">
+          <div class="time-row">
+            <span class="time-label current" data-audio="audio-1">0:00</span>
+            <span class="time-label duration" data-audio="audio-1">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAIXA 2 -->
+    <div class="track-card">
+      <div class="track-header">
+        <div class="track-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
+          </svg>
+        </div>
+        <div class="track-meta">
+          <p class="track-title">Título do áudio 2</p>
+          <p class="track-date">Fevereiro 2025</p>
+        </div>
+      </div>
+      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
+      <audio id="audio-2" src="audios/faixa2.mp3" preload="metadata"></audio>
+      <div class="player-controls">
+        <button class="play-btn" data-audio="audio-2" data-playing="false">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="progress-wrap">
+          <input type="range" class="progress-bar" data-audio="audio-2" min="0" max="100" value="0" step="0.1">
+          <div class="time-row">
+            <span class="time-label current" data-audio="audio-2">0:00</span>
+            <span class="time-label duration" data-audio="audio-2">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAIXA 3 -->
+    <div class="track-card">
+      <div class="track-header">
+        <div class="track-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12 0c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
+          </svg>
+        </div>
+        <div class="track-meta">
+          <p class="track-title">Título do áudio 3</p>
+          <p class="track-date">Março 2025</p>
+        </div>
+      </div>
+      <p class="track-desc">Breve descrição opcional sobre este áudio.</p>
+      <audio id="audio-3" src="audios/faixa3.mp3" preload="metadata"></audio>
+      <div class="player-controls">
+        <button class="play-btn" data-audio="audio-3" data-playing="false">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="progress-wrap">
+          <input type="range" class="progress-bar" data-audio="audio-3" min="0" max="100" value="0" step="0.1">
+          <div class="time-row">
+            <span class="time-label current" data-audio="audio-3">0:00</span>
+            <span class="time-label duration" data-audio="audio-3">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      Para adicionar mais faixas, copie um bloco <div class="track-card"> acima,
+      troque o id (audio-4, audio-5, ...) e o src do <audio>.
+    -->
+
+  </div>
+
+  <script>
+    const PLAY_ICON = `<svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+    const PAUSE_ICON = `<svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
+    function fmt(s) {
+      if (isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + String(sec).padStart(2, '0');
+    }
+
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      const audioId = btn.dataset.audio;
+      const audio = document.getElementById(audioId);
+      const bar = document.querySelector(`.progress-bar[data-audio="${audioId}"]`);
+      const cur = document.querySelector(`.time-label.current[data-audio="${audioId}"]`);
+      const dur = document.querySelector(`.time-label.duration[data-audio="${audioId}"]`);
+
+      audio.addEventListener('loadedmetadata', () => {
+        dur.textContent = fmt(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+          bar.value = (audio.currentTime / audio.duration) * 100;
+          cur.textContent = fmt(audio.currentTime);
+        }
+      });
+
+      audio.addEventListener('ended', () => {
+        btn.innerHTML = PLAY_ICON;
+        btn.dataset.playing = 'false';
+        bar.value = 0;
+        cur.textContent = '0:00';
+      });
+
+      bar.addEventListener('input', () => {
+        if (audio.duration) {
+          audio.currentTime = (bar.value / 100) * audio.duration;
+        }
+      });
+
+      btn.addEventListener('click', () => {
+        const playing = btn.dataset.playing === 'true';
+
+        // pausa todos os outros
+        document.querySelectorAll('.play-btn').forEach(b => {
+          if (b !== btn && b.dataset.playing === 'true') {
+            const otherId = b.dataset.audio;
+            document.getElementById(otherId).pause();
+            b.innerHTML = PLAY_ICON;
+            b.dataset.playing = 'false';
+          }
+        });
+
+        if (playing) {
+          audio.pause();
+          btn.innerHTML = PLAY_ICON;
+          btn.dataset.playing = 'false';
+        } else {
+          audio.play();
+          btn.innerHTML = PAUSE_ICON;
+          btn.dataset.playing = 'true';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
