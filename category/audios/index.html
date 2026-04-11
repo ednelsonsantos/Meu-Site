@@ -110,6 +110,7 @@
 <link rel="icon" href="/wp-content/uploads/2025/11/cropped-ChatGPT-Image-15-de-nov.-de-2025-20_10_47-192x192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="/wp-content/uploads/2025/11/cropped-ChatGPT-Image-15-de-nov.-de-2025-20_10_47-180x180.png">
 <meta name="msapplication-TileImage" content="/wp-content/uploads/2025/11/cropped-ChatGPT-Image-15-de-nov.-de-2025-20_10_47-270x270.png">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
 </head>
 
 <body class="archive category category-home category-2 wp-custom-logo wp-theme-minimalistblogger wp-child-theme-dark-minimalistblogger wls_unknown hfeed masthead-fixed elementor-default elementor-kit-7">
@@ -166,6 +167,15 @@
 
 		<div class="entry-content">
 <style id="audio-player-css">
+:root {
+  --plyr-color-main: #1f7cec;
+  --plyr-audio-controls-background: #0a284b;
+  --plyr-audio-control-color: #94a3b8;
+  --plyr-audio-control-color-hover: #fff;
+  --plyr-range-fill-background: #1f7cec;
+  --plyr-range-track-height: 3px;
+  --plyr-range-thumb-background: #60a5fa;
+}
 .track-card{background:#0d3c74;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem}
 .track-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .track-icon{width:40px;height:40px;border-radius:8px;background:#0a284b;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -174,16 +184,6 @@
 .track-title{font-size:15px;font-weight:500;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
 .track-date{font-size:12px;color:#64748b}
 .track-desc{font-size:13px;color:#94a3b8;line-height:1.5;margin-bottom:12px}
-.player-controls{display:flex;align-items:center;gap:10px}
-.play-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:#1f7cec;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
-.play-btn:hover{background:#3993ff}
-.play-btn svg{width:14px;height:14px;color:#fff}
-.progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px}
-.progress-bar{width:100%;height:3px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.2);border-radius:2px;outline:none;cursor:pointer}
-.progress-bar::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#60a5fa;cursor:pointer}
-.progress-bar::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#60a5fa;cursor:pointer;border:none}
-.time-row{display:flex;justify-content:space-between}
-.time-label{font-size:11px;color:#64748b;font-variant-numeric:tabular-nums}
 </style>
 <div class="audio-list">
 
@@ -197,43 +197,26 @@
       </div>
     </div>
     <p class="track-desc">algumas poucas palavras sobre o que eu entendi e penso sobre o episódio.</p>
-    <audio id="audio-1" src="/audios/Sobre the pitt S2E14.mp3" preload="metadata"></audio>
-    <div class="player-controls">
-      <button class="play-btn" data-audio="audio-1" data-playing="false">
-        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <div class="progress-wrap">
-        <input type="range" class="progress-bar" data-audio="audio-1" min="0" max="100" value="0" step="0.1">
-        <div class="time-row">
-          <span class="time-label current" data-audio="audio-1">0:00</span>
-          <span class="time-label duration" data-audio="audio-1">0:00</span>
-        </div>
-      </div>
+    <audio id="audio-1" controls preload="metadata"><source src="/audios/Sobre the pitt S2E14.mp3" type="audio/mpeg"></audio>
+  </div>
     </div>
   </div>
 </div><!-- .audio-list -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.min.js"></script>
 <script id="audio-player-js">
-(function(){
-  var PL='<svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/><\/svg>';
-  var PA='<svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/><\/svg>';
-  function fmt(s){if(isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
-  document.querySelectorAll('.play-btn').forEach(function(btn){
-    var id=btn.dataset.audio,audio=document.getElementById(id);
-    var bar=document.querySelector('.progress-bar[data-audio="'+id+'"]');
-    var cur=document.querySelector('.time-label.current[data-audio="'+id+'"]');
-    var dur=document.querySelector('.time-label.duration[data-audio="'+id+'"]');
-    audio.addEventListener('loadedmetadata',function(){dur.textContent=fmt(audio.duration);});
-    audio.addEventListener('timeupdate',function(){if(audio.duration){bar.value=(audio.currentTime/audio.duration)*100;cur.textContent=fmt(audio.currentTime);}});
-    audio.addEventListener('ended',function(){btn.innerHTML=PL;btn.dataset.playing='false';bar.value=0;cur.textContent='0:00';});
-    bar.addEventListener('input',function(){if(audio.duration)audio.currentTime=(bar.value/100)*audio.duration;});
-    btn.addEventListener('click',function(){
-      var playing=btn.dataset.playing==='true';
-      document.querySelectorAll('.play-btn').forEach(function(b){if(b!==btn&&b.dataset.playing==='true'){document.getElementById(b.dataset.audio).pause();b.innerHTML=PL;b.dataset.playing='false';}});
-      if(playing){audio.pause();btn.innerHTML=PL;btn.dataset.playing='false';}
-      else{audio.play();btn.innerHTML=PA;btn.dataset.playing='true';}
+document.addEventListener('DOMContentLoaded', function() {
+  var players = Array.from(document.querySelectorAll('.audio-list audio')).map(function(el) {
+    return new Plyr(el, {
+      controls: ['play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'speed'],
+      speed: { selected: 1, options: [0.75, 1, 1.25, 1.5, 2] }
     });
   });
-}());
+  players.forEach(function(p) {
+    p.on('play', function() {
+      players.forEach(function(o) { if (o !== p) o.pause(); });
+    });
+  });
+});
 </script>
 		</div><!-- .entry-content -->
 		</main><!-- #main -->
