@@ -1,25 +1,24 @@
 # Meu Site — Ednelson dos Santos
 
-Blog pessoal hospedado no Cloudflare Pages, exportado como site estático a partir do WordPress.
+Blog pessoal estático hospedado no Cloudflare Pages.
 
 ## Tecnologias
 
-- WordPress 6.8 (exportado como HTML estático via LiteSpeed Cache)
-- Tema: Dark Minimalistblogger (filho de Minimalistblogger)
-- Page builder: Elementor
+- HTML estático puro (sem WordPress, sem PHP, sem build step)
+- Tema visual: Dark Minimalistblogger (CSS do tema mantido, PHP/plugins removidos)
 - Hospedagem: Cloudflare Pages (Workers & Pages)
 
 ## Estrutura
 
 ```
-/                        → Página inicial
+/                        → Página inicial (estilo terminal)
 /blog/                   → Lista de posts
+/todos-os-posts/         → Todos os posts
 /category/<slug>/        → Posts por categoria
 /category/audios/        → Player de áudios
 /<slug>/                 → Post individual
 /audios/                 → Arquivos de áudio (.mp3)
-/wp-content/             → Assets (CSS, JS, imagens, fontes)
-/wp-includes/            → Assets do WordPress core
+/wp-content/uploads/     → Imagens dos posts e logos
 _headers                 → Regras de cache e headers de segurança (Cloudflare)
 _redirects               → Redirecionamentos e bloqueios de rotas PHP (Cloudflare)
 wrangler.toml            → Configuração do deploy via Cloudflare Workers & Pages
@@ -29,10 +28,7 @@ wrangler.toml            → Configuração do deploy via Cloudflare Workers & P
 
 O deploy é automático via integração GitHub → Cloudflare Pages.
 
-A cada `git push` na branch `main`, o Cloudflare executa:
-
-1. **Build command:** copia os arquivos para a pasta `dist/` excluindo `.git`
-2. **Deploy command:** `npx wrangler deploy` sobe os assets via Workers & Pages
+A cada `git push` na branch `main`, o Cloudflare faz o deploy direto dos arquivos estáticos.
 
 ### Configuração do build no Cloudflare
 
@@ -41,12 +37,6 @@ A cada `git push` na branch `main`, o Cloudflare executa:
 | Build command | `echo "done"` |
 | Build output | *(raiz do repositório)* |
 | Root directory | *(vazio)* |
-
-## Limitações do site estático
-
-- Formulário de comentários não funciona (aponta para `/wp-comments-post.php`)
-- Feed RSS (`/feed/`) redireciona para `/blog/`
-- Busca WordPress não funciona (depende de AJAX/PHP)
 
 ## Categorias
 
@@ -78,7 +68,7 @@ Todas as páginas têm um painel flutuante na lateral direita para entrar na sal
 
 ## Como publicar
 
-O fluxo recomendado é usar o app local `app.py`:
+O fluxo recomendado é usar o app local `app.py` (não versionado — ver abaixo):
 
 ```bash
 python app.py
@@ -86,7 +76,7 @@ python app.py
 
 Abre em `http://127.0.0.1:5000` com duas abas:
 
-- **Post** — cria um novo post HTML completo, insere nos índices e publica no GitHub
+- **Post** — cria um novo post HTML completo, insere nos índices (blog, categoria, todos-os-posts, home) e publica no GitHub
 - **Áudio** — adiciona uma faixa em `/category/audios/` com player integrado
 
 Alternativamente, via Git diretamente:
@@ -101,24 +91,43 @@ O Cloudflare Pages faz o deploy automaticamente em ~1 minuto após o push.
 
 ## Como criar um novo post (manual)
 
-1. Copie a pasta `novo-post-exemplo/` e renomeie para o slug do post
-2. Edite o `index.html` preenchendo os campos `<< >>`
-3. Insira o card nas páginas de listagem (`blog/index.html`, `category/*/index.html`, `index.html`)
+1. Crie a pasta `/<slug>/index.html` baseando-se em um post existente
+2. Preencha título, data, categoria, conteúdo e imagem
+3. Adicione o card nas páginas de listagem:
+   - `blog/index.html`
+   - `todos-os-posts/index.html`
+   - `category/<categoria>/index.html`
+   - `index.html` (home — formato linha terminal)
 4. Faça commit e push
+
+**Atenção:** certifique-se de incluir a classe `category-<slug>` no `<article>` do post e de todas as listagens onde ele aparece.
 
 ## Como adicionar um áudio
 
 1. Coloque o arquivo `.mp3` na pasta `/audios/`
 2. Abra `python app.py` → aba **Áudio**
-3. Clique em 📂 para selecionar o arquivo, preencha título e data
+3. Selecione o arquivo, preencha título e data
 4. Clique **Adicionar Faixa** → **Publicar**
+
+## Scripts locais (não versionados)
+
+Os arquivos `*.py` e `*.sh` estão no `.gitignore` e não vão para o repositório. São ferramentas de uso local apenas:
+
+| Arquivo | Função |
+|---|---|
+| `app.py` | Interface web Flask para criar posts e áudios |
+| `criar-post.py` | Alternativa CLI para criar posts |
+| `clean_html.py` | Remove metadados WordPress de HTMLs exportados |
+| `publish.sh` | Script de commit e push rápido |
 
 ## Layout
 
-O tema usa layout float-based (herança do WordPress). Ajustes aplicados para a versão estática:
+A home usa estilo **terminal/texto puro**: lista de posts com data ISO, título e categoria entre colchetes — sem imagens, sem widgets. Fonte monoespaçada, fundo escuro.
 
-- `#primary { width: 100%; float: none }` — remove o layout de duas colunas (sidebar removida)
-- `#content .content-wrap { padding: 0 61px }` — breathing room lateral no conteúdo
-- Media query `≤768px`: padding reduz para `16px`
-- Footer com Arquivos e Categorias colapsável por clique
-- Open Graph / meta description em todos os posts
+Os posts individuais e páginas de categoria mantêm o layout do tema Dark Minimalistblogger com header, navegação e footer padrão.
+
+## Limitações
+
+- Formulário de comentários não funciona (aponta para `/wp-comments-post.php`)
+- Feed RSS (`/feed/`) redireciona para `/blog/`
+- Busca WordPress não funciona (depende de AJAX/PHP)
