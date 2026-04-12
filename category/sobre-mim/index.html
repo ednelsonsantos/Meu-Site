@@ -198,34 +198,19 @@
 </div><!-- #content -->
 
 <footer id="colophon" class="site-footer clearfix">
-
 	<div class="content-wrap">
-				<div class="footer-column-wrapper">
-			<div class="footer-column-three footer-column-left">
-				<section id="block-5" class="fbox widget widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h2 class="wp-block-heading">Arquivos</h2><ul class="wp-block-archives-list wp-block-archives">	<li><a href="/2025/12/">dezembro 2025</a></li>
-	<li><a href="/2025/11/">novembro 2025</a></li>
-	<li><a href="/2025/08/">agosto 2025</a></li>
-</ul></div></div></section><section id="block-6" class="fbox widget widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h2 class="wp-block-heading">Categorias</h2><ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-2"><a href="/">Home</a>
-</li>
-	<li class="cat-item cat-item-4"><a href="/category/o-que-estou-assistindo/">O que estou assistindo/ Assisti</a>
-</li>
-	<li class="cat-item cat-item-6"><a href="/category/o-que-eu-sei-e-aprendi-sobre-o-autismo/">O que eu sei e aprendi sobre o Autismo</a>
-</li>
-	<li class="cat-item cat-item-5"><a href="/category/recomendados/">Recomendados</a>
-</li>
-	<li class="cat-item cat-item-3 current-cat"><a aria-current="page" href="/category/sobre-mim/">Sobre Mim</a>
-</li>
-</ul></div></div></section>			</div>
-		
-		
-	
-</div>
-
-
-</div>
-
-
-
+		<nav class="footer-nav">
+			<span class="footer-copy">&copy; 2026 Ednelson</span>
+			<a href="/">Home</a>
+			<a href="/category/o-que-estou-assistindo/">Assisti/Assisto</a>
+			<a href="/category/o-que-eu-sei-e-aprendi-sobre-o-autismo/">Autismo</a>
+			<a href="/category/recomendados/">Recomendados</a>
+			<a href="/category/audios/">&#193;udios</a>
+			<a href="/category/sobre-mim/">Sobre Mim</a>
+			<a href="/category/meus-posts/">Meus Posts</a>
+			<a href="/category/hobbies/">Hobbies</a>
+		</nav>
+	</div>
 </footer>
 </div>
 <!-- Off canvas menu overlay, delete to remove dark shadow -->
@@ -269,21 +254,12 @@
     </div>
   </div>
 </div>
-<style id="footer-accordion-css">
-.site-footer .wp-block-heading{cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;margin-bottom:0}
-.site-footer .wp-block-heading::after{content:'BC';font-size:10px;transition:transform .25s ease;display:inline-block;margin-left:8px;opacity:.7}
-.site-footer .wp-block-heading.fac-open::after{transform:rotate(-180deg)}
-.site-footer .wp-block-archives,.site-footer .wp-block-categories-list,.site-footer .wp-block-archives-list{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .3s ease;margin-top:0}
-.site-footer .wp-block-archives.fac-open,.site-footer .wp-block-categories-list.fac-open,.site-footer .wp-block-archives-list.fac-open{max-height:600px;opacity:1;margin-top:8px}
+<style id="footer-nav-css">
+.site-footer{border-top:1px solid #333;margin-top:40px;padding:20px 0}
+.footer-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:13px;padding:0 20px}
+.footer-copy{color:#888;margin-right:8px}
+.footer-nav a{color:#aaa;text-decoration:none}
+.footer-nav a:hover{color:#fff}
 </style>
-<script id="footer-accordion-js">
-(function(){document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.site-footer .wp-block-heading').forEach(function(h){
-    var ul=h.parentElement.querySelector('ul');
-    if(!ul)return;
-    h.addEventListener('click',function(){h.classList.toggle('fac-open');ul.classList.toggle('fac-open');});
-  });
-});}())
-</script>
 </body>
 </html>
