@@ -16,6 +16,7 @@ Blog pessoal estático hospedado no Cloudflare Pages.
 /todos-os-posts/         → Todos os posts
 /category/<slug>/        → Posts por categoria
 /category/audios/        → Player de áudios
+/minha-colecao/          → Coleção física (DVD/Blu-ray/4K) carregada via JSON
 /<slug>/                 → Post individual
 /audios/                 → Arquivos de áudio (.mp3)
 /wp-content/uploads/     → Imagens dos posts e logos
@@ -38,17 +39,18 @@ A cada `git push` na branch `main`, o Cloudflare faz o deploy direto dos arquivo
 | Build output | *(raiz do repositório)* |
 | Root directory | *(vazio)* |
 
-## Categorias
+## Categorias e páginas no menu
 
 | Label no nav | URL |
 |---|---|
-| Home | `/category/home/` |
-| Meus Posts | `/category/meus-posts/` |
+| Home | `/` |
 | Assisti/Assisto | `/category/o-que-estou-assistindo/` |
 | Recomendados | `/category/recomendados/` |
 | Autismo | `/category/o-que-eu-sei-e-aprendi-sobre-o-autismo/` |
 | Hobbies | `/category/hobbies/` |
+| Meus Posts | `/category/meus-posts/` |
 | Áudios | `/category/audios/` |
+| Minha Coleção | `/minha-colecao/` |
 | Sobre Mim | `/category/sobre-mim/` |
 
 ## Meus Posts (Mastodon)
@@ -74,10 +76,11 @@ O fluxo recomendado é usar o app local `app.py` (não versionado — ver abaixo
 python app.py
 ```
 
-Abre em `http://127.0.0.1:5000` com duas abas:
+Abre em `http://127.0.0.1:5000` com três abas:
 
-- **Post** — cria um novo post HTML completo, insere nos índices (blog, categoria, todos-os-posts, home) e publica no GitHub
+- **Post** — cria um novo post HTML completo, insere nos índices (blog, categoria, author, todos-os-posts, home) e publica no GitHub
 - **Áudio** — adiciona uma faixa em `/category/audios/` com player integrado
+- **Coleção** — adiciona/atualiza itens em `minha-colecao/colecao.json` (match por IMDb ID); a página `/minha-colecao/` lê o JSON dinamicamente via JavaScript
 
 Alternativamente, via Git diretamente:
 
@@ -115,7 +118,7 @@ Os arquivos `*.py` e `*.sh` estão no `.gitignore` e não vão para o repositór
 
 | Arquivo | Função |
 |---|---|
-| `app.py` | Interface web Flask para criar posts e áudios |
+| `app.py` | Interface web Flask para criar posts, áudios e gerenciar a coleção |
 | `criar-post.py` | Alternativa CLI para criar posts |
 | `clean_html.py` | Remove metadados WordPress de HTMLs exportados |
 | `publish.sh` | Script de commit e push rápido |
