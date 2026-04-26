@@ -179,6 +179,7 @@
   <div class="col-grid" id="col-grid"><div class="col-empty">Carregando...</div></div>
 </div>
 
+<script id="colecao-data">window.__COLECAO__ = [];</script>
 <script id="colecao-js">
 (function() {
   var all = [], activeFilter = 'all', query = ''
@@ -188,6 +189,9 @@
   }
 
   function load() {
+    if (window.__COLECAO__ && window.__COLECAO__.length > 0) {
+      all = window.__COLECAO__; buildUI(); render(); return;
+    }
     fetch('/minha-colecao/colecao.json')
       .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json() })
       .then(function(data) { all = data; buildUI(); render() })
