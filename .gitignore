@@ -37,3 +37,6 @@ templates/
 *.pdf
 audios/*.wav
 audios/*.flac
+
+# Dados da coleção (gerenciados localmente via app.py)
+minha-colecao/*.json
