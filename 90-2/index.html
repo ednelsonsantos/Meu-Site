@@ -123,8 +123,8 @@
 								<div class="site-branding branding-logo">
 					<a href="/" class="custom-logo-link" rel="home"><img fetchpriority="high" width="955" height="509" src="/wp-content/uploads/2025/08/cropped-logotipo_ednelson2.png" class="custom-logo" alt="" decoding="async" srcset="/wp-content/uploads/2025/08/cropped-logotipo_ednelson2.png 955w, /wp-content/uploads/2025/08/cropped-logotipo_ednelson2-300x160.png 300w, /wp-content/uploads/2025/08/cropped-logotipo_ednelson2-768x409.png 768w, /wp-content/uploads/2025/08/cropped-logotipo_ednelson2-850x453.png 850w" sizes="(max-width: 955px) 100vw, 955px"></a>				</div>
 				</div>
-	<nav id="primary-site-navigation" class="primary-menu main-navigation clearfix">
-		<a href="#" class="smenu-hide toggle-mobile-menu menu-toggle" aria-controls="secondary-menu" aria-expanded="false">Menu</a>
+	<a href="#" class="smenu-hide toggle-mobile-menu menu-toggle" aria-controls="secondary-menu" aria-expanded="false"><span class="menu-icon" aria-hidden="true">&#9776;</span> Menu</a>
+		<nav id="primary-site-navigation" class="primary-menu main-navigation clearfix">
 		<div class="content-wrap text-center">
 			<div class="center-main-menu">
 				<div class="menu-menu-categoria-container"><ul id="primary-menu" class="pmenu"><li id="menu-item-20" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-20"><a href="/">Home</a></li>
@@ -139,12 +139,7 @@
 </ul></div>				</div>
 			</div>
 		</nav>
-		<div class="super-menu clearfix">
-			<div class="super-menu-inner">
-				<a href="#" id="pull" class="toggle-mobile-menu menu-toggle" aria-controls="secondary-menu" aria-expanded="false">Menu</a>
-			</div>
-		</div>
-		<div id="mobile-menu-overlay"></div>
+<div id="mobile-menu-overlay"></div>
 	</header>
 
 	
@@ -222,6 +217,7 @@
 <style id="xmpp-float-css">
 #xmpp-float{position:fixed;right:-185px;top:50%;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:row;transition:right .3s ease}
 #xmpp-float:hover{right:0}
+#xmpp-float.open{right:0}
 #xmpp-tab{writing-mode:vertical-rl;text-orientation:mixed;background:#1f7cec;color:#fff;padding:12px 6px;border-radius:6px 0 0 6px;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:1px;display:flex;align-items:center;justify-content:center;min-height:90px;box-shadow:-2px 0 8px rgba(0,0,0,.5);user-select:none}
 #xmpp-body{background:#0d3c74;width:185px;padding:14px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:-2px 0 10px rgba(0,0,0,.5)}
 .xmpp-join{display:block;background:#1f7cec;color:#fff!important;text-align:center;padding:9px 8px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none!important;line-height:1.4}
@@ -231,8 +227,9 @@
 .xmpp-links{display:flex;flex-direction:column;gap:4px}
 .xmpp-links a{display:block;color:#60a5fa!important;font-size:11px;text-align:center;text-decoration:none!important;padding:3px 0;border-radius:4px}
 .xmpp-links a:hover{color:#fff!important;text-decoration:underline!important}
-@media(max-width:768px){#xmpp-float{top:auto;bottom:70px;transform:none}}
+@media(max-width:768px){#xmpp-float{top:auto;bottom:70px;transform:none}#xmpp-float.open{right:0}}
 </style>
+<script>document.addEventListener('DOMContentLoaded',function(){var f=document.getElementById('xmpp-float');if(!f)return;document.getElementById('xmpp-tab').addEventListener('click',function(){f.classList.toggle('open');});document.addEventListener('click',function(e){if(!f.contains(e.target))f.classList.remove('open');});});</script>
 <div id="xmpp-float">
   <div id="xmpp-tab">XMPP</div>
   <div id="xmpp-body">
