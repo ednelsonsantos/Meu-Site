@@ -5,6 +5,20 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
 ---
 
+## [2026-05-02]
+
+### Corrigido
+- **Menu mobile duplicado** — removido `<div class="super-menu">` (segundo botão "Menu") de todos os 99 HTMLs do site; o botão único agora fica fora do `<nav>` para não sumir com `display:none` do tema
+- **Botão Menu não aparecia em mobile** — corrigida regra CSS: `.smenu-hide` passa a ter `display:block` diretamente, sem depender da classe `mobile-menu-active`; botão reposicionado abaixo do logo com separador visual
+- **jQuery não carregava** — arquivo `/wp-includes/js/jquery/jquery.min.js` ausente no projeto estático; jQuery 3.7.1 adicionado localmente; sem jQuery o clique do menu não funcionava
+- **Ícone hamburguer dependia de FontAwesome** — substituído pelo caractere Unicode `☰` (`&#9776;`) inline; CSS do `::before` desativado com `content:none`
+- **Widget XMPP inacessível em mobile** — sem hover em toque; adicionada classe `.open` + script de toggle por clique em `#xmpp-tab`; fechar ao tocar fora funciona em todos os 100 HTMLs
+- **Imagens dos cards de categoria com altura fixa** — `height:200px` trocado por `height:auto; aspect-ratio:16/9` em mobile (evita corte em imagens com proporções variadas)
+- **Página Minha Coleção em branco no mobile** — HTML estava sem os containers `#col-grid`, `#col-stats`, `#col-toolbar` e sem CSS da coleção; página reconstruída com header padrão, CSS completo e estrutura correta
+- **`app.py` gerava posts com layout desatualizado** — template `html_post_completo` corrigido: botão Menu fora do nav, `super-menu` removido, XMPP com toggle mobile
+
+---
+
 ## [2026-04-25]
 
 ### Adicionado
