@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Fullmetal Alchemist: Brotherhood",
+    "original_title": "鋼の錬金術師 FULLMETAL ALCHEMIST",
+    "year": 2009,
+    "status": "assistido",
+    "studio": "Bones",
+    "episodes": 64,
+    "mal_id": 5114,
+    "poster_url": "https://cdn.myanimelist.net/images/anime/1223/96541.jpg",
+    "mal_url": "https://myanimelist.net/anime/5114"
+  },
+  {
+    "title": "Demon Slayer",
+    "original_title": "鬼滅の刃",
+    "year": 2019,
+    "status": "assistido",
+    "studio": "ufotable",
+    "episodes": 26,
+    "mal_id": 38000,
+    "poster_url": "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
+    "mal_url": "https://myanimelist.net/anime/38000"
+  },
+  {
+    "title": "My Hero Academia",
+    "original_title": "僕のヒーローアカデミア",
+    "year": 2016,
+    "status": "assistido",
+    "studio": "Bones",
+    "episodes": 138,
+    "mal_id": 31964,
+    "poster_url": "https://cdn.myanimelist.net/images/anime/10/78745.jpg",
+    "mal_url": "https://myanimelist.net/anime/31964"
+  },
+  {
+    "title": "Fire Force",
+    "original_title": "炎炎ノ消防隊",
+    "year": 2019,
+    "status": "assistido",
+    "studio": "David Production",
+    "episodes": 48,
+    "mal_id": 38671,
+    "poster_url": "https://cdn.myanimelist.net/images/anime/1148/100552.jpg",
+    "mal_url": "https://myanimelist.net/anime/38671"
+  },
+  {
+    "title": "Soul Eater",
+    "original_title": "ソウルイーター",
+    "year": 2008,
+    "status": "assistido",
+    "studio": "Bones",
+    "episodes": 51,
+    "mal_id": 3588,
+    "poster_url": "https://cdn.myanimelist.net/images/anime/1607/117271.jpg",
+    "mal_url": "https://myanimelist.net/anime/3588"
+  }
+]
