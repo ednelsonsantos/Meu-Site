@@ -30,6 +30,9 @@ package-lock.json
 novo-post.html
 templates/
 
+# Painel admin mobile (ferramenta pessoal, não vai para produção)
+_admin/
+
 # Claude Code (configurações locais da IA)
 .claude/
 
